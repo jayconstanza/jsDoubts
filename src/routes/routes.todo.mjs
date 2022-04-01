@@ -31,11 +31,11 @@ router.get('/:id', async (req, res) => {
   // checking if todo not found then 404 request
   if (!todo)
     return res.status(404).json(
-      res.json({
+      {
         success: false,
         data: [],
         message: 'There is no data found related to this id!',
-      })
+      }
     )
 
   // if found then send the response
