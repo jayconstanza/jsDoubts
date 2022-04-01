@@ -109,5 +109,25 @@ router.post("/", async (req, res) => {
   });
 });
 
+// delete a todo
+router.delete('/:id', async (req, res) => {
+  // find an delete the data using moongoose & mongodb
+  const deletedTodo = await Todo.findByIdAndRemove(req?.params?.id)
+
+  // checking if todo not found then 404 request & if found then send the response
+  if (!deletedTodo)
+    return res.status(404).json({
+      success: false,
+      data: [],
+      message: 'There is no data found related to this id!',
+    })
+
+  // finally response send with deleted data
+  return res.json({
+    success: true,
+    data: deletedTodo,
+    message: 'Delete successful!',
+  })
+})
 
 export default router
