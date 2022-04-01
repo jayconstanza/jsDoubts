@@ -1,6 +1,6 @@
 import express from "express";
 // import Mongoose from 'mongoose'
-import Todo, { validateTodo } from "../models/models.todo";
+import Todo, { validateTodo } from "../models/models.todo.mjs";
 
 const router = express.Router();
 
@@ -19,14 +19,16 @@ router.post("/", async (req, res) => {
 
   let todo = new Todo({
     title: req?.body?.title,
-    completed: false,
+    completed: req?.body?.completed
   });
 
   todo = await todo.save();
-
   return res.json({
     success: true,
     data: todo,
     message: "New todo adding successful!",
   });
 });
+
+
+export default router
