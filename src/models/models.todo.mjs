@@ -11,6 +11,7 @@ const todoSchema = new Mongoose.Schema({
   },
   completed: {
     type: Boolean,
+    default: false
   },
 });
 const TodoModel = Mongoose.model("Todo", todoSchema);
