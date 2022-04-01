@@ -45,6 +45,44 @@ router.get('/:id', async (req, res) => {
     message: 'Finding successful!',
   })
 })
+
+// update an existing todo
+router.put('/:id', async (req, res) => {
+  // Validating the user input
+  const { error } = validateTodo(req.body)
+  console.log('validateTodo', validateTodo(req.body))
+  if (error) {
+    return res.status(400).json({
+      success: false,
+      data: [],
+      message: error?.details[0]?.message,
+    })
+  }
+
+  // find Id and updated it by mongoose
+  const todo = await Todo.findByIdAndUpdate(
+    req.params.id,
+    { title: req?.body?.title, completed: req?.body?.completed },
+    {
+      new: true,
+    }
+  )
+
+  // if todo is not available then error or else new updated data send to user
+  if (!todo)
+    return res.status(404).json({
+      success: false,
+      data: [],
+      message: 'There is no data found related to this id!',
+    })
+
+  return res.json({
+    success: true,
+    data: todo,
+    message: 'Update successful!',
+  })
+})
+
 router.post("/", async (req, res) => {
   // validate using Joi, with factoring function
   const { error } = validateTodo(req.body);

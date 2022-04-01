@@ -14,6 +14,7 @@ const todoSchema = new Mongoose.Schema({
     default: false
   },
 });
+
 const TodoModel = Mongoose.model("Todo", todoSchema);
 const JoiSchema = Joi.object({
   title: Joi.string().min(5).max(255).required(),
