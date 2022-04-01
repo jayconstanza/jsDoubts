@@ -3,6 +3,17 @@ import express from "express";
 import Todo, { validateTodo } from "../models/models.todo.mjs";
 
 const router = express.Router();
+//_ before req says that is passed, but not used
+router.get("/", async (_req, res) => {
+    // sending all data to response
+    const todos = await Todo.find()
+
+    return res.json({
+      success: true,
+      data: todos,
+      message: 'Request successful!',
+    })
+});
 
 router.post("/", async (req, res) => {
   // validate using Joi, with factoring function
